@@ -1,20 +1,29 @@
 package com.victorantunes.zupgram.model;
 
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 import org.neo4j.ogm.annotation.*;
 
-import java.util.Date;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDateTime;
 
 @RelationshipEntity(type = "FOLLOWS")
-@Value
+@With
+@AllArgsConstructor
+@NoArgsConstructor
 public class Follow {
     @Id
     @GeneratedValue
     Long id;
+
+    @PastOrPresent
     @Property
-    Date since;
+    @JsonProperty
+    LocalDateTime since = LocalDateTime.now();
+
     @StartNode
     User follower;
+
     @EndNode
-    User followed;
+    User followee;
 }

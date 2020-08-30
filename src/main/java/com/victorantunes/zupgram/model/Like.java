@@ -1,19 +1,35 @@
 package com.victorantunes.zupgram.model;
 
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.With;
 import org.neo4j.ogm.annotation.*;
 
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDateTime;
 
 @RelationshipEntity(type = "LIKED")
-@Value
+@With
+@AllArgsConstructor
+@NoArgsConstructor
 public class Like {
     @Id
     @GeneratedValue
     Long id;
+
+    @PastOrPresent
     @Property
-    Publication publication;
+    @JsonProperty
+    LocalDateTime when = LocalDateTime.now();
+
     @StartNode
-    User userLiked;
+    @JsonIgnoreProperties({"fan"})
+    User fan;
+
     @EndNode
-    User userPosted;
+    @JsonIgnoreProperties({"owner"})
+    Publication publication;
 }
