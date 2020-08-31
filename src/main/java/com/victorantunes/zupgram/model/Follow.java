@@ -1,7 +1,10 @@
 package com.victorantunes.zupgram.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.With;
 import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.PastOrPresent;
@@ -22,6 +25,7 @@ public class Follow {
     LocalDateTime since = LocalDateTime.now();
 
     @StartNode
+    @JsonIgnore
     User follower;
 
     @EndNode

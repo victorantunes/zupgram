@@ -1,0 +1,11 @@
+FROM gradle:6.4.1-jdk14
+
+ENV ROOT_FOLDER /zupgram
+
+USER root
+RUN mkdir $ROOT_FOLDER
+
+COPY wait-for-it.sh $ROOT_FOLDER
+COPY build/libs/zupgram*.jar $ROOT_FOLDER/
+
+WORKDIR /$ROOT_FOLDER

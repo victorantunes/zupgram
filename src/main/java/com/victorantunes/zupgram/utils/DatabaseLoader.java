@@ -1,22 +1,25 @@
-package com.victorantunes.zupgram;
+package com.victorantunes.zupgram.utils;
 
 import com.victorantunes.zupgram.model.Publication;
 import com.victorantunes.zupgram.model.User;
 import com.victorantunes.zupgram.repository.PublicationRepository;
 import com.victorantunes.zupgram.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PublicationRepository publicationRepository;
+    private final PublicationRepository publicationRepository;
 
+    public DatabaseLoader(UserRepository userRepository, PublicationRepository publicationRepository) {
+        this.userRepository = userRepository;
+        this.publicationRepository = publicationRepository;
+    }
 
     @Override
     public void run(String... args) {
@@ -45,7 +48,8 @@ public class DatabaseLoader implements CommandLineRunner {
         Publication pub1 = new Publication()
                 .withOwner(victorantunes_)
                 .withDescription("Another cool day at the beach")
-                .withLocation("At the beach");
+                .withLocation("At the beach")
+                .withTags(Set.of("beach", "sunset"));
         publicationRepository.save(pub1);
 
         pedrohenrique.like(pub1);
@@ -59,7 +63,5 @@ public class DatabaseLoader implements CommandLineRunner {
 
         raimundoinacio.follow(victorantunes_);
         userRepository.save(raimundoinacio);
-
-        System.out.println(userRepository.findFollowersByUsername("victorantunes_"));
     }
 }
