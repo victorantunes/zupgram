@@ -1,4 +1,4 @@
-FROM gradle:6.4.1-jdk14
+FROM gradle:6.6-jdk14
 
 ENV ROOT_FOLDER /zupgram
 
@@ -6,6 +6,6 @@ USER root
 RUN mkdir $ROOT_FOLDER
 
 COPY wait-for-it.sh $ROOT_FOLDER
-COPY build/libs/zupgram*.jar $ROOT_FOLDER/
+COPY build/libs/zupgram-1.0.jar $ROOT_FOLDER/zupgram-1.0.jar
 
 WORKDIR /$ROOT_FOLDER

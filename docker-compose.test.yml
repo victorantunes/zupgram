@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
-    command: ["sh", "-c", "./gradlew --no-daemon cleanTest test --fail-fast --console plain --stacktrace"]
+    command: ["sh", "-c", "./gradle --no-daemon cleanTest test --fail-fast --console plain --stacktrace"]
     depends_on:
         - neo4j
   neo4j:
